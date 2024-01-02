@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c88ad03687a141098574597b4f7ecfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
+  playerDefaultStats: {fileID: 11400000, guid: bbca384fe84e54ebd9d7ff51615104d3, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -3,26 +3,26 @@ using UnityEngine;
 
 namespace Managers {
   public class PauseManager : Singleton<PauseManager> {
-    private bool isPaused;
+    private bool _isPaused;
 
     public static event Action<bool> OnTogglePause;
 
     void Awake() {
-      isPaused = false;
+      _isPaused = false;
     }
 
     public void TogglePauseState() {
-      isPaused = !isPaused;
+      _isPaused = !_isPaused;
       ToggleTimeScale();
       InvokePause();
     }
 
     void ToggleTimeScale() {
-      Time.timeScale = isPaused ? 0f : 1f;
+      Time.timeScale = _isPaused ? 0f : 1f;
     }
 
     void InvokePause() {
-      OnTogglePause?.Invoke(isPaused);
+      OnTogglePause?.Invoke(_isPaused);
     }
   }
 }

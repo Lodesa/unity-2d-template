@@ -1,8 +1,13 @@
+using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[
+  RequireComponent(typeof(Rigidbody2D)),
+  RequireComponent(typeof(PlayerDefaultStatsSO))
+]
 public class PlayerMove : MonoBehaviour {
-  public float movementSpeed = 3f;
+  [SerializeField] private PlayerDefaultStatsSO playerDefaultStats;
 
   private Vector2 _movementDirection;
   private Rigidbody2D _rb;
@@ -14,7 +19,7 @@ public class PlayerMove : MonoBehaviour {
   }
 
   void FixedUpdate() {
-    _rb.velocity = _movementDirection * movementSpeed;
+    _rb.velocity = _movementDirection * playerDefaultStats.moveSpeed;
   }
 
   public void UpdateMovementDirection(Vector3 direction) {
