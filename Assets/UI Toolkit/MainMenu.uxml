@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Submenu1" src="project://database/Assets/UI%20Toolkit/Submenu1.uxml?fileID=9197481963319205126&amp;guid=006c025c7f4f6479cabed676b6c5fdd7&amp;type=3#Submenu1" />
+    <ui:VisualElement name="MainMenuRoot" style="flex-grow: 1;">
+        <ui:Button text="Button1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button1" />
+        <ui:Button text="Button2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button2" />
+        <ui:Button text="Submenu1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Submenu1" />
+        <ui:Button text="Submenu2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Submenu2" />
+    </ui:VisualElement>
+    <ui:Instance template="Submenu1" name="Submenu1" />
+</ui:UXML>
