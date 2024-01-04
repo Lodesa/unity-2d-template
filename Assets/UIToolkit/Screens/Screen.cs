@@ -7,7 +7,6 @@ namespace UIToolkit.Screens {
   [RequireComponent(typeof(UIDocument))]
   public class Screen : MonoBehaviour {
     public PanelSettings panelSettings;
-    private UIDocument _uiDocument;
     private Button _btnBack;
 
     void Start() {
@@ -16,16 +15,7 @@ namespace UIToolkit.Screens {
 
     void OnEnable() {
       EventSystemFindGameObject();
-
-      _uiDocument = GetComponent<UIDocument>();
-      if (_uiDocument) {
-        _uiDocument.rootVisualElement.Q<Button>().Focus();
-        _uiDocument.rootVisualElement.RegisterCallback<NavigationCancelEvent>(ShowPreviousScreen);
-        _btnBack = _uiDocument.rootVisualElement.Q("btnBack") as Button;
-        if (_btnBack != null) {
-          _btnBack.clicked += ShowPreviousScreen;
-        }
-      }
+      InitializeBackButton();
     }
 
     void OnDisable() {
@@ -34,6 +24,17 @@ namespace UIToolkit.Screens {
       }
     }
 
+    void InitializeBackButton() {
+      UIDocument uiDocument = GetComponent<UIDocument>();
+      if (uiDocument) {
+        uiDocument.rootVisualElement.RegisterCallback<NavigationCancelEvent>(ShowPreviousScreen);
+        _btnBack = uiDocument.rootVisualElement.Q("btnBack") as Button;
+        if (_btnBack != null) {
+          _btnBack.clicked += ShowPreviousScreen;
+        }
+      }
+    }
+    
     void ShowPreviousScreen(NavigationCancelEvent evt) {
       ShowPreviousScreen();
     }
