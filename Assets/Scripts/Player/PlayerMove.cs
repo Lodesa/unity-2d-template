@@ -4,7 +4,6 @@ using UnityEngine.Serialization;
 
 [
   RequireComponent(typeof(Rigidbody2D)),
-  RequireComponent(typeof(PlayerDefaultStatsSO))
 ]
 public class PlayerMove : MonoBehaviour {
   [SerializeField] private PlayerDefaultStatsSO playerDefaultStats;

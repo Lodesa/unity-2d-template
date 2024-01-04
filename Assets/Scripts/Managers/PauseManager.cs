@@ -14,6 +14,7 @@ namespace Managers {
     public void TogglePauseState() {
       _isPaused = !_isPaused;
       ToggleTimeScale();
+      TogglePauseScreen();
       InvokePause();
     }
 
@@ -21,6 +22,15 @@ namespace Managers {
       Time.timeScale = _isPaused ? 0f : 1f;
     }
 
+    void TogglePauseScreen() {
+      if (_isPaused) {
+        ScreenManager.Instance.ShowScreen("MainMenu");
+      }
+      else {
+        ScreenManager.Instance.HideAllScreens();
+      }
+    }
+    
     void InvokePause() {
       OnTogglePause?.Invoke(_isPaused);
     }

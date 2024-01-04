@@ -1,4 +1,0 @@
-.unity-button:focus,
-.unity-button:hover {
-    background-color: red;
-}
