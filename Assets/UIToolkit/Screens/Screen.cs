@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -6,10 +7,9 @@ namespace UIToolkit.Screens {
   
   [RequireComponent(typeof(UIDocument))]
   public class Screen : MonoBehaviour {
-    public PanelSettings panelSettings;
     private Button _btnBack;
 
-    void Start() {
+    void Awake() {
       ScreenManager.Instance.RegisterScreen(gameObject);
     }
 
@@ -44,8 +44,7 @@ namespace UIToolkit.Screens {
     }
 
     void EventSystemFindGameObject() {
-      if (EventSystem.current != null)
-        EventSystem.current.SetSelectedGameObject(EventSystem.current.transform.Find(panelSettings.name).gameObject);
+      EventSystemManager.Instance.SetSelectedGameObject();
     }
   }
 }

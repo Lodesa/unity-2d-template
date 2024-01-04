@@ -294,10 +294,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 310278188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff225e98a6e942ac89aae385df2c459, type: 3}
+  m_Script: {fileID: 11500000, guid: aee8120f65627460baaf219814d412ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   panelSettings: {fileID: 11400000, guid: 59bc905294139490fa3c42abc80da0aa, type: 2}
+  screens: {fileID: 476609512}
 --- !u!1 &476609512
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &476609513
 Transform:
   m_ObjectHideFlags: 0
