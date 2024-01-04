@@ -1,42 +1,48 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenManager : Singleton<ScreenManager> {
-  private Dictionary<string, GameObject> _screens;
-  private Stack<string> _breadCrumbs;
+namespace UIToolkit.Screens {
   
-  public static event Action<string> OnShowScreen;
-  public static event Action OnHideAllScreens;
+  public class ScreenManager : Singleton<ScreenManager> {
+    private Dictionary<string, GameObject> _screens;
+    private Stack<string> _breadCrumbs;
 
-  void Awake() {
-    _breadCrumbs = new Stack<string>();
-  }
+    private void Awake() {
+      _screens = new Dictionary<string, GameObject>();
+      _breadCrumbs = new Stack<string>();
+    }
 
-  // SHOW
-  public void ShowScreen(string screen) {
-    InvokeShowScreen(screen);
-  }
-  void InvokeShowScreen(string screen) {
-    _breadCrumbs.Push(screen);
-    OnShowScreen?.Invoke(screen);
-  }
+    public void RegisterScreen(GameObject go) {
+      _screens.Add(go.name, go);
+      go.SetActive(false);
+    }
 
-  // HIDE ALL
-  public void HideAllScreens() {
-    _breadCrumbs.Clear();
-    InvokeHideAllScreens();
-  }
-  void InvokeHideAllScreens() {
-    OnHideAllScreens?.Invoke();
-  }
-  
-  // PREVIOUS
-  public void ShowPreviousScreen() {
-    if (_breadCrumbs.Count >= 2) {
-      _breadCrumbs.Pop();
-      string prev = _breadCrumbs.Peek();
-      OnShowScreen?.Invoke(prev);
+    public void ShowScreen(string screen) {
+      if (_screens[screen] != null) {
+        if (_breadCrumbs.Count > 0) {
+          string curr = _breadCrumbs.Peek();
+          _screens[curr].SetActive(false);
+        }
+
+        _breadCrumbs.Push(screen);
+        _screens[screen].SetActive(true);
+      }
+    }
+
+    public void HideAllScreens() {
+      _breadCrumbs.Clear();
+      foreach (var (key, value) in _screens) {
+        value.SetActive(false);
+      }
+    }
+
+    public void ShowPreviousScreen() {
+      if (_breadCrumbs.Count >= 2) {
+        string curr = _breadCrumbs.Pop();
+        _screens[curr].SetActive(false);
+        string prev = _breadCrumbs.Peek();
+        _screens[prev].SetActive(true);
+      }
     }
   }
 }

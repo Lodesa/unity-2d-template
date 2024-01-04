@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class AudioMenu : MonoBehaviour {
-  private Button _btnBack;
+namespace UIToolkit.Screens.AudioMenu {
   
-  private void OnEnable() {
-    var uiDocument = GetComponent<UIDocument>();
+  public class AudioMenu : MonoBehaviour {
+    private Button _btnBack;
+  
+    private void OnEnable() {
+      var uiDocument = GetComponent<UIDocument>();
+    }
   }
 }

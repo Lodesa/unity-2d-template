@@ -1,60 +1,50 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-[RequireComponent(typeof(UIDocument))]
-public class Screen : MonoBehaviour {
-  private string _name;
-  private UIDocument _uiDocument;
-  private Button _btnBack;
-
-  void Start() {
-    _uiDocument = GetComponent<UIDocument>();
-    _name = _uiDocument.name;
-    _uiDocument.rootVisualElement.style.display = DisplayStyle.None;
-  }
+namespace UIToolkit.Screens {
   
-  void OnEnable() {
-    ScreenManager.OnShowScreen += ShowScreen;
-    ScreenManager.OnHideAllScreens += HideScreen;
+  [RequireComponent(typeof(UIDocument))]
+  public class Screen : MonoBehaviour {
+    public PanelSettings panelSettings;
+    private UIDocument _uiDocument;
+    private Button _btnBack;
 
-    // Register back button handler
-    _uiDocument = GetComponent<UIDocument>();
-    if (_uiDocument) {
-      _uiDocument.rootVisualElement.RegisterCallback<NavigationCancelEvent>(ShowPreviousScreen);
-      _btnBack = _uiDocument.rootVisualElement.Q("btnBack") as Button;
+    void Start() {
+      ScreenManager.Instance.RegisterScreen(gameObject);
+    }
+
+    void OnEnable() {
+      EventSystemFindGameObject();
+
+      _uiDocument = GetComponent<UIDocument>();
+      if (_uiDocument) {
+        _uiDocument.rootVisualElement.Q<Button>().Focus();
+        _uiDocument.rootVisualElement.RegisterCallback<NavigationCancelEvent>(ShowPreviousScreen);
+        _btnBack = _uiDocument.rootVisualElement.Q("btnBack") as Button;
+        if (_btnBack != null) {
+          _btnBack.clicked += ShowPreviousScreen;
+        }
+      }
+    }
+
+    void OnDisable() {
       if (_btnBack != null) {
         _btnBack.clicked += ShowPreviousScreen;
       }
-    }    
-  }
-
-  void OnDisable() {
-    ScreenManager.OnShowScreen -= ShowScreen;
-    ScreenManager.OnHideAllScreens -= HideScreen;
-    
-    // Unregister back button handler
-    if (_btnBack != null) {
-      _btnBack.clicked += ShowPreviousScreen;
-    }    
-  }
-
-  void ShowScreen(string screen) {
-    if (screen == _name) {
-      _uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
     }
-    else {
-      HideScreen();
+
+    void ShowPreviousScreen(NavigationCancelEvent evt) {
+      ShowPreviousScreen();
+    }
+
+    void ShowPreviousScreen() {
+      ScreenManager.Instance.ShowPreviousScreen();
+    }
+
+    void EventSystemFindGameObject() {
+      if (EventSystem.current != null)
+        EventSystem.current.SetSelectedGameObject(EventSystem.current.transform.Find(panelSettings.name).gameObject);
     }
   }
-
-  void HideScreen() {
-    _uiDocument.rootVisualElement.style.display = DisplayStyle.None;
-  }
-
-  void ShowPreviousScreen(NavigationCancelEvent evt) {
-    ShowPreviousScreen();
-  }
-  void ShowPreviousScreen() {
-    ScreenManager.Instance.ShowPreviousScreen();
-  }  
 }
