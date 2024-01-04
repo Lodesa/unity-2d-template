@@ -10,8 +10,6 @@ public class MainMenu : MonoBehaviour {
     var uiDocument = GetComponent<UIDocument>();
 
     if (uiDocument) {
-      uiDocument.rootVisualElement.Focus();
-
       _btnAudio = uiDocument.rootVisualElement.Q("btnAudio") as Button;
       if (_btnAudio != null) {
         _btnAudio.clicked += ShowAudioMenu;
